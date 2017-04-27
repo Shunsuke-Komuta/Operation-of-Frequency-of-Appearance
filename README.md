@@ -1,1 +1,3 @@
-# Operation-of-Frequency-of-Appearance
+```:bash
+$ php index.php
+```
