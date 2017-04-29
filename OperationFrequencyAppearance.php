@@ -2,28 +2,28 @@
 
 class OperationFrequencyAppearance {
 
-    private static $count;
+    private $count;
 
-    public static function output($numbers)
+    public function output($numbers)
     {
-        self::$count = 0;
-        $result = self::calculate($numbers);
-        echo self::$count . "\n";
+        $this->count = 0;
+        $result = $this->calculate($numbers);
+        echo $this->count . "\n";
         echo implode(" ", $result) . "\n";
     }
 
-    private static function calculate($numbers)
+    private function calculate($numbers)
     {
         $array = array_count_values($numbers);
-        if (self::isEnd($array)) return $numbers;
+        if ($this->isEnd($array)) return $numbers;
 
-        self::$count++;
-        return self::calculate(array_map(function($value) use (&$array) {
+        $this->count++;
+        return $this->calculate(array_map(function($value) use (&$array) {
             return $array[$value];
         }, $numbers));
     }
 
-    private static function isEnd($array)
+    private function isEnd($array)
     {
         return empty(array_filter($array, function($key, $value) {
             return $key != $value;
