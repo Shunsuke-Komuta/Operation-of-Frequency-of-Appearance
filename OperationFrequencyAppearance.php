@@ -18,9 +18,10 @@ class OperationFrequencyAppearance {
         if ($this->isEnd($array)) return $numbers;
 
         $this->count++;
-        return $this->calculate(array_map(function($value) use (&$array) {
+        $getFrequency = function ($value) use (&$array) {
             return $array[$value];
-        }, $numbers));
+        };
+        return $this->calculate(array_map($getFrequency, $numbers));
     }
 
     private function isEnd($array)
