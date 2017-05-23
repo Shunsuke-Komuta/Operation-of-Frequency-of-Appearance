@@ -15,21 +15,14 @@ class OperationFrequencyAppearance
     private function calculate($numbers)
     {
         $array = array_count_values($numbers);
-        if ($this->isEnd($array)) {
-            return $numbers;
-        }
-
-        $this->count++;
         $getFrequency = function ($value) use (&$array) {
             return $array[$value];
         };
-        return $this->calculate(array_map($getFrequency, $numbers));
-    }
-
-    private function isEnd($array)
-    {
-        return empty(array_filter($array, function ($key, $value) {
-            return $key != $value;
-        }, ARRAY_FILTER_USE_BOTH));
+        $nextData = array_map($getFrequency, $numbers);
+        if ($numbers == $nextData) {
+            return $numbers;
+        }
+        $this->count++;
+        return $this->calculate($nextData);
     }
 }
