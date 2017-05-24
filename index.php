@@ -1,21 +1,17 @@
 <?php
 
-function output()
+function output($count, $numbers)
 {
-    $count = 0;
-    $calculate = function ($numbers) use (&$count, &$calculate) {
-        $counter = array_count_values($numbers);
-        $getFrequency = function ($value) use (&$counter) {
-            return $counter[$value];
-        };
-        $nextData = array_map($getFrequency, $numbers);
-        if ($numbers == $nextData) {
-            return array($count, $numbers);
-        }
-        $count++;
-        return $calculate($nextData);
+    $counter = array_count_values($numbers);
+    $getFrequency = function ($value) use (&$counter) {
+        return $counter[$value];
     };
-    return $calculate;
+    $nextData = array_map($getFrequency, $numbers);
+    if ($numbers == $nextData) {
+        return array($count, $numbers);
+    }
+    $count++;
+    return output($count, $nextData);
 }
 
 while (true) {
@@ -26,8 +22,7 @@ while (true) {
     $line = trim(fgets(STDIN));
     $data = explode(" ", $line);
 
-    $outputFunc = output();
-    $numAndResult = $outputFunc($data);
+    $numAndResult = output(0, $data);
     $num = $numAndResult[0];
     $result = $numAndResult[1];
     echo $num . "\n";
