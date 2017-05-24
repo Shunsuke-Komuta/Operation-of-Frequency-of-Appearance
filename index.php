@@ -1,6 +1,6 @@
 <?php
 
-function output($count, $numbers)
+function calculateIter($count, $numbers)
 {
     $counter = array_count_values($numbers);
     $getFrequency = function ($value) use (&$counter) {
@@ -11,7 +11,7 @@ function output($count, $numbers)
         return array($count, $numbers);
     }
     $count++;
-    return output($count, $nextData);
+    return calculateIter($count, $nextData);
 }
 
 while (true) {
@@ -22,7 +22,7 @@ while (true) {
     $line = trim(fgets(STDIN));
     $data = explode(" ", $line);
 
-    $numAndResult = output(0, $data);
+    $numAndResult = calculateIter(0, $data);
     $num = $numAndResult[0];
     $result = $numAndResult[1];
     echo $num . "\n";
